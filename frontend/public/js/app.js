@@ -9,6 +9,8 @@
             taskForm: document.getElementById('task-form'),
             mainTaskList: document.querySelector('.main-task-list'),
             mainTittleMassage: document.getElementById('main-tittle-massage'),
+            inputTask: document.getElementById('input-task'),
+            selectCategories: document.getElementById('select-categories')
         },
         init: () => {
             App.bindEvents();
@@ -33,13 +35,14 @@
         },
         events: {
           // NUEVO: Recibe el id
-            addTask: ({id, name, status }) => {
+            addTask: ({id, name, category, status }) => {
               App.htmlElements.mainTaskList.innerHTML += `<div class="task-list">
                                                             <div class="checkbox-container">
                                                               <input ${status === true ? "checked" : ""} type="checkbox" class="checkbox" data-status="${status}" id="${id}" name="${name}">
                                                               <label for="${id}" style="text-decoration:${status === true ? "line-through" : ""}">
                                                                 ${name}
                                                               </label>
+                                                              <span class="category">${category}</span>
                                                             </div>
                                                             <button class="botones far fa-trash-alt" id="btn-delete-${id}" type="button"></button>
                                                             <button class="botones far fa-edit" id="btn-edit-${id}" type="button"></button>
@@ -57,31 +60,21 @@
             },
             onCompletedTask: async (event) => {
               if (event.target.nodeName === "INPUT") {
-                // console.log(event.target)
                 const idInput = event.target.id
-                const nameInput = event.target.name;
+                // const nameInput = event.target.name;
                 const completedInput = event.target.getAttribute("data-status") === "false";
+                const deleteButton = document.getElementById(`btn-delete-${idInput}`);
                 // App.utils.completedTask(completedInput, event.target.parentElement.children[1])
-                if (completedInput) 
+                if (completedInput) {
                   event.target.parentElement.children[1].style.textDecoration = "none";
-                  
-                else 
+                  deleteButton.disabled = false;
+                } else {
                   event.target.parentElement.children[1].style.textDecoration ="line-through";
-                
-      
-                const data = {
-                  id: Number(idInput),
-                  name: nameInput,
-                  completed: completedInput,
-                };
-                // console.log(data)
+                  deleteButton.disabled = true;
+                }
+                const data = { completed: completedInput };
                 document.getElementById(event.target.id).setAttribute("data-status", completedInput);
-      
-                await App.utils.updateData(
-                  `http://localhost:4000/api/v1/tasks/update/`,
-                  data,
-                  idInput
-                );
+                await App.utils.updateData(`http://localhost:4000/api/v1/tasks/complete/`, data, idInput);
               }
             },
             onDeleteTask: async (event) => {
@@ -100,8 +93,12 @@
             },
             onUpdateTask: async (event) => {
               App.variables.taskId = event.target.parentElement.children[0].children[0].id;
+              let task = [];
               if(event.target.id === `btn-edit-${App.variables.taskId}`) {
-                console.log(event.target.parentElement.children[0].children[0].id)
+                task = await App.utils.getTask(`http://localhost:4000/api/v1/task/`, App.variables.taskId);
+                console.log(task);
+                App.htmlElements.inputTask.value = task.name;
+                App.htmlElements.selectCategories.value = task.category;
               }
             },
             onTaskFormSubmit: async (event) => {
@@ -125,6 +122,11 @@
               const response = await fetch(url);
               return response.json();
             },
+            // Obtiene 1 task por el ID
+            getTask: async (url = "", id) => { 
+              const response = await fetch(url + id);
+              return response.json();
+            },
             // Ejemplo implementando el metodo POST:
             postData: async (url = "", data = {}) => {
               // Opciones por defecto estan marcadas con un *
@@ -144,10 +146,8 @@
               return response.json(); // parses JSON response into native JavaScript objects
             },
             updateData: async (url = "", data = {}, id) => {
-              console.log(url, data, id)
-              // console.log(url + id)
               const response = await fetch(url + id, {
-                method: "POST",
+                method: "PATCH", // < ---------------- devolver a patch
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -160,13 +160,7 @@
                 method: "DELETE",
               });
               return response.json();
-            },
-            // completedTask: (status, task) => {
-            //   if (status) 
-            //     task.style.textDecoration = "none";
-            //   else 
-            //     task.style.textDecoration ="line-through";
-            // }
+            }
           },
         };
         App.init();

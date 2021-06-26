@@ -14,11 +14,12 @@ html(lang="en")
                 .title-container
                     h1 To do List
                 form#task-form(action="")
-                    input(type="text", name="task", placeholder="Introduce una tarea") 
-                    select
-                        option(value="lol") TAL
-                        option(value="lol2") PALABRA 
-                        option(value="lol3") EJEMPLO
+                    input(type="text", name="task", placeholder="Introduce una tarea" id="input-task" required) 
+                    select(id="select-categories")
+                        option(disabled selected required) -- Seleccione una categoria --
+                        option(value="universidad") Universidad
+                        option(value="trabajo") Trabajo 
+                        option(value="hogar") Hogar
                     button(type="submit") Guardar
                 .main-task-list
 
