@@ -93,12 +93,12 @@
             },
             onUpdateTask: async (event) => {
               App.variables.taskId = event.target.parentElement.children[0].children[0].id;
-              let task = [];
+              let task = {};
               if(event.target.id === `btn-edit-${App.variables.taskId}`) {
                 task = await App.utils.getTask(`http://localhost:4000/api/v1/task/`, App.variables.taskId);
-                console.log(task);
                 App.htmlElements.inputTask.value = task.name;
                 App.htmlElements.selectCategories.value = task.category;
+                // SEGUIR EL UPDATE AQUÍ !!!!!!!!!!!!!!!!!!
               }
             },
             onTaskFormSubmit: async (event) => {
@@ -106,12 +106,13 @@
               const {
                 task: { value: taskValue },
               } = event.target.elements;
-              // NUEVO: id+1
-              App.events.addTask({id: App.variables.arrayLength+1, name: taskValue, status: "false" });
+              const category = App.htmlElements.selectCategories.value;
+              App.events.addTask({id: App.variables.arrayLength+1, name: taskValue, category, status: "false" });
               // Guardar en el servidor
               await App.utils.postData("http://localhost:4000/api/v1/tasks/", {
                 id: App.variables.arrayLength+1,
                 name: taskValue,
+                category,
                 completed: false,
               });
               document.getElementById("task-form").reset();
@@ -154,6 +155,9 @@
                 body: JSON.stringify(data),
               });
               return response.json();
+            },
+            updateTask: async (url = "", data = {}, id) => {
+              console.log(data);
             },
             deleteData: async (url = "", id) => {
               const response = await fetch(url + id, {

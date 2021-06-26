@@ -40,8 +40,8 @@ const Tasks = {
         const errors = validationResult(req);
         if(!errors.isEmpty()){ return res.json(errors);}
         // NUEVO: id
-        const { id, name, completed } = req.body;
-        Data.push({id, name, completed });
+        const { id, name, category, completed } = req.body;
+        Data.push({id, name, category, completed });
         res.json({
             model: 'Tasks',
             count: Data.length,
