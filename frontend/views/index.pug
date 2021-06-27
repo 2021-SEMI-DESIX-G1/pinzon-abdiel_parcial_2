@@ -20,14 +20,15 @@ html(lang="en")
                         h1 To do List
                     hr
                 form#task-form(action="")
-                    input(type="text", name="task", placeholder="Introduce una tarea" id="input-task" required) 
-                    select(id="select-categories")
+                    input(type="text",  class="input-task" name="task", placeholder="Introduce una tarea" id="input-task" required) 
+                    select( class="select-categories" id="select-categories")
                         option(disabled selected required) -- Seleccione una categoria --
                         option(value="universidad") Universidad
                         option(value="trabajo") Trabajo 
                         option(value="hogar") Hogar
-                    button(type="submit" id="btn-save") Guardar
-                    button(type="button" id="btn-update" disabled) Actualizar
+                    button(type="submit" class="btn-save" id="btn-save") Guardar
+                    button(type="button" class="btn-update" id="btn-update" disabled) Actualizar
+                hr(class="hr-form")
                 .main-task-list
             .footer
                 i.fas.fa-graduation-cap

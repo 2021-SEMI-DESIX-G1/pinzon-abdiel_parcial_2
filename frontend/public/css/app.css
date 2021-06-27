@@ -42,12 +42,8 @@ html, body {
     justify-content: flex-start;
 }
 
-/*
-* Estilos para los botones
-*/
 
-.botones {
-    /* background: none; */
-    /* border: none; */
-    cursor: pointer;
+.hr-form {
+    width: 100%;
+    border: .1px solid #E6E6E6;
 }

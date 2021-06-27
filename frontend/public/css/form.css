@@ -17,17 +17,46 @@ form {
     align-items: center;
 }
 
-form input, select {
+.input-task, .select-categories {
     margin: 0;
+    border: none;
+    border-radius: 3px;
     height: 2.6rem;
     width: 35%;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+    /* font-weight: 400; */
     padding-left: 1rem;
 }
 
-form button {
+.btn-save, .btn-update {
     font-family: 'Montserrat', sans-serif;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
     font-weight: 400;
-    height: 2.3rem;
+    width: 8rem;
+    height: 2.6rem;
+    cursor: pointer;
+}
+
+.btn-save {
+    background-color: #e91e63;
+}.btn-save:hover {
+    background-color: #E8115A;
+}.btn-save:disabled {
+    background-color: rgba(233, 30, 99, .3);
+}
+
+.btn-update {
+    background-color: #607d8b;
+}.btn-update:hover {
+    background-color: #537A8C;
+}
+.btn-update:disabled {
+    background-color: rgba(96, 125, 139, .3);
+    cursor: default;
+}
+
+.botones {
+    cursor: pointer;
 }
