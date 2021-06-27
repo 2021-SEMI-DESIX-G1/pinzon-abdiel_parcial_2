@@ -47,8 +47,9 @@
                                                             </div>
                                                             <button class="botones btn-delete far fa-trash-alt" id="btn-delete-${id}" type="button"></button>
                                                             <button class="botones btn-edit far fa-edit" id="btn-edit-${id}" type="button"></button>
-                                                          </div><hr class="hr-lista">`
+                                                          </div>`
             },
+            // <hr class="hr-lista">`
             onCompletedTask: async (event) => {
               if (event.target.nodeName === "INPUT") {
                 const idInput = event.target.id
@@ -74,6 +75,7 @@
                 event.target.parentElement.remove();
                 await App.utils.deleteData(`http://localhost:4000/api/v1/tasks/delete/`, App.variables.taskId);
               };
+              document.getElementsByClassName('hr-form').remove();
             },
             onUpdateTask: async (event) => {
               App.variables.taskId = event.target.parentElement.children[0].children[0].id;
@@ -83,7 +85,7 @@
                 task = await App.utils.getTask(`http://localhost:4000/api/v1/task/`, App.variables.taskId);
                 App.htmlElements.inputTask.value = task.name;
                 App.htmlElements.selectCategories.value = task.category;
-                const update = await App.utils.updateTask(`http://localhost:4000/api/v1/tasks/update/`, App.variables.taskId)
+                await App.utils.updateTask(`http://localhost:4000/api/v1/tasks/update/`, App.variables.taskId)
                 App.htmlElements.btnSave.disabled = true;
                 App.htmlElements.btnUpdate.disabled = false;
               }
@@ -135,6 +137,7 @@
               return response.json();
             },
             updateTask: async (url = "", id) => {
+              // Esto se debería mover a onUpdateTask
               App.htmlElements.btnUpdate.addEventListener("click", () => {
                  const data = {
                   id: Number(id),
@@ -142,6 +145,7 @@
                   category: App.htmlElements.selectCategories.value,
                   status: Boolean(true)
                 }
+                // Solo debo usar 1 async que retorne el json...
                 async function execute() {
                   const update = await fetch(url + id, {
                     method: "PUT",
@@ -151,7 +155,7 @@
                   });
                   App.htmlElements.btnSave.disabled = false;
                   App.htmlElements.btnUpdate.disabled = true;
-                  return update.json();
+                  return update.json()
                 }
                 execute();
               });

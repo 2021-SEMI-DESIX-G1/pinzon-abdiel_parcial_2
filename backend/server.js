@@ -57,10 +57,6 @@ const Tasks = {
     },
     updateTask: (req, res) => {
         Data[req.params.id-1] = req.body;
-        // Data.forEach((item, index) => {
-        //     console.log(item)
-        //     if (item.id === Number(req.params.id)) Data[index] = req.body;
-        // });
         return res.status(200).json({model: "Tasks", data: Data, message: 'Tarea actualizada.'});
     },
     deleteTask: (req, res) => {
