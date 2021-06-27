@@ -1,0 +1,13 @@
+.footer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+    bottom: 0px;
+    color: #424242;
+    width: 100%;
+}
+
+.footer small {
+    margin-left: 1rem;
+}

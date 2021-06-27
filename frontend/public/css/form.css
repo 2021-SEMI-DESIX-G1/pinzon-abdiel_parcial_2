@@ -1,7 +1,7 @@
 
 .main-form {
     /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
-    background-color: #F2F2F2;
+    background-color: rgba(242, 242, 242, .7);
     width: 55%;
     min-height: 80%;
     display: flex;
