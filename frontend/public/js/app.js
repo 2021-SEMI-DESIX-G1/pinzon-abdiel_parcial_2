@@ -37,16 +37,17 @@
             addTask: ({id, name, category, status }) => {
               App.htmlElements.mainTaskList.innerHTML += `<div class="task-list">
                                                             <div class="checkbox-container">
-                                                              <input ${status === true ? "checked" : ""} type="checkbox" class="checkbox" data-status="${status}" id="${id}" name="${name}">
+                                                              <input ${(status) === true ? "checked" : ""} type="checkbox" class="checkbox" data-status="${status}" id="${id}" name="${name}">
                                                               <div class="label-container">
-                                                                <label for="${id}" style="text-decoration:${status === true ? "line-through" : ""}">
+                                                                <label for="${id}" style="text-decoration:${(status) === true ? "line-through" : "none"}">
                                                                   ${name}
                                                                 </label>
-                                                                <span class="category"><i class="fas fa-tags"></i> ${category}</span>
+                                                                <span style="text-decoration:${(status) === true ? "line-through" : "none"}" class="category"><i class="fas fa-tags"></i> ${category}</span>
+                                                                <hr class="hr-lista">
                                                               </div>
                                                             </div>
                                                             <button class="botones btn-delete far fa-trash-alt" id="btn-delete-${id}" type="button"></button>
-                                                            <button class="botones btn-edit far fa-edit" id="btn-edit-${id}" type="button"></button>
+                                                            <button ${(status) === true ? "disabled" : ""} class="botones btn-edit far fa-edit" id="btn-edit-${id}" type="button"></button>
                                                           </div>`
             },
             // <hr class="hr-lista">`
@@ -57,11 +58,11 @@
                 const completedInput = event.target.getAttribute("data-status") === "false";
                 const editButton = document.getElementById(`btn-edit-${idInput}`);
                 // App.utils.completedTask(completedInput, event.target.parentElement.children[1])
-                if (completedInput) {
-                  event.target.parentElement.children[1].style.textDecoration = "line-through";
+                if (Boolean(completedInput) === false) {
+                  event.target.parentElement.children[1].style.textDecoration = "none";
                   editButton.disabled = true;
                 } else {
-                  event.target.parentElement.children[1].style.textDecoration = "none";
+                  event.target.parentElement.children[1].style.textDecoration = "line-through";
                   editButton.disabled = false;
                 }
                 const data = { status: completedInput };
@@ -75,7 +76,6 @@
                 event.target.parentElement.remove();
                 await App.utils.deleteData(`http://localhost:4000/api/v1/tasks/delete/`, App.variables.taskId);
               };
-              document.getElementsByClassName('hr-form').remove();
             },
             onUpdateTask: async (event) => {
               App.variables.taskId = event.target.parentElement.children[0].children[0].id;
@@ -85,7 +85,24 @@
                 task = await App.utils.getTask(`http://localhost:4000/api/v1/task/`, App.variables.taskId);
                 App.htmlElements.inputTask.value = task.name;
                 App.htmlElements.selectCategories.value = task.category;
-                await App.utils.updateTask(`http://localhost:4000/api/v1/tasks/update/`, App.variables.taskId)
+                App.htmlElements.btnUpdate.addEventListener("click", () => {
+                  async function execute() {
+                    const data = {
+                      id: Number(App.variables.taskId),
+                      name: App.htmlElements.inputTask.value,
+                      category: App.htmlElements.selectCategories.value,
+                      status: Boolean(true)
+                    }
+                    const update = await App.utils.updateTask(`http://localhost:4000/api/v1/tasks/update/`, data, Number(App.variables.taskId))
+                    App.htmlElements.mainTaskList.innerHTML = '';
+                    const tasks = update.data;
+                    tasks.forEach(task => {
+                      App.events.addTask(task);
+                    });
+                  }
+                  execute();
+                  
+                });
                 App.htmlElements.btnSave.disabled = true;
                 App.htmlElements.btnUpdate.disabled = false;
               }
@@ -136,29 +153,16 @@
               });
               return response.json();
             },
-            updateTask: async (url = "", id) => {
-              // Esto se debería mover a onUpdateTask
-              App.htmlElements.btnUpdate.addEventListener("click", () => {
-                 const data = {
-                  id: Number(id),
-                  name: App.htmlElements.inputTask.value,
-                  category: App.htmlElements.selectCategories.value,
-                  status: Boolean(true)
-                }
-                // Solo debo usar 1 async que retorne el json...
-                async function execute() {
-                  const update = await fetch(url + id, {
-                    method: "PUT",
-                    headers: {
-                      "Content-Type": "application/json",
-                    }, body: JSON.stringify(data)
-                  });
-                  App.htmlElements.btnSave.disabled = false;
-                  App.htmlElements.btnUpdate.disabled = true;
-                  return update.json()
-                }
-                execute();
+            updateTask: async (url = "", data = {}, id) => {
+              const update = await fetch(url + id, {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+                }, body: JSON.stringify(data)
               });
+              App.htmlElements.btnSave.disabled = false;
+              App.htmlElements.btnUpdate.disabled = true;
+              return update.json();
             },
             deleteData: async (url = "", id) => {
               const response = await fetch(url + id, {
