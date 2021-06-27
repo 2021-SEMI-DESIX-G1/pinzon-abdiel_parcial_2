@@ -15,13 +15,13 @@ const Data = [
         id: 1,
         name: 'Terminar clase de metodologías',
         category: 'universidad',
-        completed: false
+        status: false
     },
     {
         id: 2,
         name: 'Hacer laboratorio de programación',
         category: 'universidad',
-        completed: false
+        status: false
     }
 ]
 
@@ -40,8 +40,8 @@ const Tasks = {
         const errors = validationResult(req);
         if(!errors.isEmpty()){ return res.json(errors);}
         // NUEVO: id
-        const { id, name, category, completed } = req.body;
-        Data.push({id, name, category, completed });
+        const { id, name, category, status } = req.body;
+        Data.push({id, name, category, status });
         res.json({
             model: 'Tasks',
             count: Data.length,
@@ -50,15 +50,17 @@ const Tasks = {
     },
     completeTask: (req, res) => {
         const id = Number(req.params.id);
-        const body = Boolean(req.body.completed);
+        const body = Boolean(req.body.status);
         const task = Data.findIndex((data) => data.id === Number(id));
-        Data[task].completed = body;
+        Data[task].status = body;
         return res.status(200).json({ model: "Tasks", data: Data, message: `Estado de la tarea actualizado a ${body}`});
     },
     updateTask: (req, res) => {
-        Data.forEach((item, index) => {
-            if (item.id === Number(req.params.id)) Data[index] = req.body;
-        });
+        Data[req.params.id-1] = req.body;
+        // Data.forEach((item, index) => {
+        //     console.log(item)
+        //     if (item.id === Number(req.params.id)) Data[index] = req.body;
+        // });
         return res.status(200).json({model: "Tasks", data: Data, message: 'Tarea actualizada.'});
     },
     deleteTask: (req, res) => {
@@ -70,7 +72,7 @@ const Tasks = {
 const TasksValidations = {
     createTask: [
         body('name', 'El nombre es incorrecto.').exists({checkNull: true, checkFalsy: true}),
-        body('completed', 'La edad es incorrecto.').isBoolean(),
+        body('status', 'La edad es incorrecto.').isBoolean(),
     ]
 }
 
