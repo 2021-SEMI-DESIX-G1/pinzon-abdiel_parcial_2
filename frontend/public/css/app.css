@@ -24,18 +24,6 @@ html, body {
     padding-bottom: 15px;
 }
 
-/* .title-container { */
-    /* background-color: red; */
-/* } */
-
-
-h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    padding-left: 3rem;
-    padding-top: 1rem;
-}
-
 form {
     padding: 8px;
     display: flex;

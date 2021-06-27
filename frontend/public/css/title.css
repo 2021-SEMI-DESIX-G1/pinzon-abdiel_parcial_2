@@ -1,0 +1,27 @@
+.title-container {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #e91e63;
+    color: #fff;
+}
+
+.title-container .title {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.title i {
+    font-size: 1.8rem;
+    margin-right: 1rem;
+}
+
+
+h1, small {
+    font-weight: 400;
+    margin: 0;
+}
+
+
+hr {
+    border: 1px solid #fff;
+}
