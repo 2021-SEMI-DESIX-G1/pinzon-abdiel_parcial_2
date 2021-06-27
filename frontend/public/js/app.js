@@ -38,14 +38,16 @@
               App.htmlElements.mainTaskList.innerHTML += `<div class="task-list">
                                                             <div class="checkbox-container">
                                                               <input ${status === true ? "checked" : ""} type="checkbox" class="checkbox" data-status="${status}" id="${id}" name="${name}">
-                                                              <label for="${id}" style="text-decoration:${status === true ? "line-through" : ""}">
-                                                                ${name}
-                                                              </label>
-                                                              <span class="category">${category}</span>
+                                                              <div class="label-container">
+                                                                <label for="${id}" style="text-decoration:${status === true ? "line-through" : ""}">
+                                                                  ${name}
+                                                                </label>
+                                                                <span class="category"><i class="fas fa-tags"></i> ${category}</span>
+                                                              </div>
                                                             </div>
-                                                            <button class="botones far fa-trash-alt" id="btn-delete-${id}" type="button"></button>
-                                                            <button class="botones far fa-edit" id="btn-edit-${id}" type="button"></button>
-                                                          </div>`;
+                                                            <button class="botones btn-delete far fa-trash-alt" id="btn-delete-${id}" type="button"></button>
+                                                            <button class="botones btn-edit far fa-edit" id="btn-edit-${id}" type="button"></button>
+                                                          </div><hr class="hr-lista">`
             },
             onCompletedTask: async (event) => {
               if (event.target.nodeName === "INPUT") {

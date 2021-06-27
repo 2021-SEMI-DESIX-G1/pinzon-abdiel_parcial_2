@@ -6,7 +6,6 @@
     min-height: 80%;
     display: flex;
     flex-direction: column;
-    /* justify-content: space-around; */
     padding-bottom: 15px;
 }
 
@@ -44,6 +43,7 @@ form {
 }.btn-save:hover {
     background-color: #E8115A;
 }.btn-save:disabled {
+    cursor: default;
     background-color: rgba(233, 30, 99, .3);
 }
 
@@ -55,8 +55,4 @@ form {
 .btn-update:disabled {
     background-color: rgba(96, 125, 139, .3);
     cursor: default;
-}
-
-.botones {
-    cursor: pointer;
 }

@@ -7,6 +7,7 @@ html(lang="en")
         link(rel="stylesheet", href="/static/css/app.css")
         link(rel="stylesheet", href="/static/css/title.css")
         link(rel="stylesheet", href="/static/css/form.css")
+        link(rel="stylesheet", href="/static/css/list.css")
         link(rel="stylesheet", href="/static/css/footer.css")
         link(rel="stylesheet", href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous")
 
@@ -23,9 +24,9 @@ html(lang="en")
                     input(type="text",  class="input-task" name="task", placeholder="Introduce una tarea" id="input-task" required) 
                     select( class="select-categories" id="select-categories")
                         option(disabled selected required) -- Seleccione una categoria --
-                        option(value="universidad") Universidad
-                        option(value="trabajo") Trabajo 
-                        option(value="hogar") Hogar
+                        option(value="Universidad") Universidad
+                        option(value="Trabajo") Trabajo 
+                        option(value="Hogar") Hogar
                     button(type="submit" class="btn-save" id="btn-save") Guardar
                     button(type="button" class="btn-update" id="btn-update" disabled) Actualizar
                 hr(class="hr-form")

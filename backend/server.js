@@ -14,13 +14,13 @@ const Data = [
     {
         id: 1,
         name: 'Terminar clase de metodologías',
-        category: 'universidad',
+        category: 'Universidad',
         status: false
     },
     {
         id: 2,
         name: 'Hacer laboratorio de programación',
-        category: 'universidad',
+        category: 'Universidad',
         status: false
     }
 ]
