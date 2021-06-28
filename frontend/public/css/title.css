@@ -1,11 +1,11 @@
 .title-container {
     font-family: 'Montserrat', sans-serif;
-    background-color: #e91e63;
+    background-color: #4a2f84;
     color: #fff;
 }
 
 .title-container .title {
-    padding: 1.5rem;
+    padding: 1.2rem;
     display: flex;
     align-items: center;
 }

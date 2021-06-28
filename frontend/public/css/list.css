@@ -12,7 +12,14 @@
     flex-wrap: nowrap;
 }
 
+.hr-lista {
+    width: 100%;
+    border: 1px solid #E6E6E6;
+}
+
+
 .label-container {
+    width: 95%;
     display: flex;
     margin-bottom: 2px;
     flex-direction: column;
@@ -43,11 +50,6 @@
     max-width: 6.5rem;
 }
 
-.hr-lista {
-    width: 100%;
-    border: 1px solid #E6E6E6;
-}
-
 .fa-tags {
     font-size: .7rem;
     margin-right: 3px;
@@ -65,9 +67,9 @@
 
 .btn-delete {
     color: #F0F0F0;
-    background-color: #f44336;
+    background-color: #4a2f84;
 }.btn-delete:hover {
-    background-color: #F32C1D;
+    background-color: #422385;
 }
 
 .btn-edit {

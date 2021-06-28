@@ -1,9 +1,9 @@
 
 .main-form {
     /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
-    background-color: rgba(242, 242, 242, .7);
+    background-color: rgba(242, 242, 242, .6);
     width: 55%;
-    min-height: 80%;
+    /* min-height: 80%; */
     display: flex;
     flex-direction: column;
     padding-bottom: 15px;
@@ -20,8 +20,8 @@ form {
     margin: 0;
     border: none;
     border-radius: 3px;
-    height: 2.6rem;
-    width: 35%;
+    height: 2.4rem;
+    width: 32%;
     font-family: 'Montserrat', sans-serif;
     /* font-weight: 400; */
     padding-left: 1rem;
@@ -34,17 +34,17 @@ form {
     color: #fff;
     font-weight: 400;
     width: 8rem;
-    height: 2.6rem;
+    height: 2.4rem;
     cursor: pointer;
 }
 
 .btn-save {
-    background-color: #e91e63;
+    background-color: #4a2f84;
 }.btn-save:hover {
-    background-color: #E8115A;
+    background-color: #422385;
 }.btn-save:disabled {
     cursor: default;
-    background-color: rgba(233, 30, 99, .3);
+    background-color: rgba(102, 86, 136, .3);
 }
 
 .btn-update {
@@ -55,4 +55,39 @@ form {
 .btn-update:disabled {
     background-color: rgba(96, 125, 139, .3);
     cursor: default;
+}
+
+@media screen and (max-width: 1400px){
+    .input-task, .select-categories {
+        width: 25%;
+    }
+}
+
+
+@media screen and (max-width: 980px){
+    .input-task, .select-categories {
+        font-size: .7rem;
+        width: 20%;
+        height: 2rem;
+    }
+
+    .btn-save, .btn-update {
+        font-size: .7rem;
+        width: 8rem;
+        height: 2rem;
+    }
+}
+
+@media screen and (max-width: 810px){
+    .input-task, .select-categories {
+        font-size: .5rem;
+        width: 30%;
+        height: 1.7rem;
+    }
+
+    .btn-save, .btn-update {
+        font-size: .5rem;
+        width: 15%;
+        height: 1.7rem;
+    }
 }

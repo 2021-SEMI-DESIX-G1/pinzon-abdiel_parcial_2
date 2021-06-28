@@ -53,17 +53,15 @@
             // <hr class="hr-lista">`
             onCompletedTask: async (event) => {
               if (event.target.nodeName === "INPUT") {
-                const idInput = event.target.id
-                // const nameInput = event.target.name;
+                const idInput = event.target.id;
                 const completedInput = event.target.getAttribute("data-status") === "false";
                 const editButton = document.getElementById(`btn-edit-${idInput}`);
-                // App.utils.completedTask(completedInput, event.target.parentElement.children[1])
                 if (Boolean(completedInput) === false) {
                   event.target.parentElement.children[1].style.textDecoration = "none";
-                  editButton.disabled = true;
+                  editButton.disabled = false;
                 } else {
                   event.target.parentElement.children[1].style.textDecoration = "line-through";
-                  editButton.disabled = false;
+                  editButton.disabled = true;
                 }
                 const data = { status: completedInput };
                 document.getElementById(event.target.id).setAttribute("data-status", completedInput);
@@ -79,7 +77,6 @@
             },
             onUpdateTask: async (event) => {
               App.variables.taskId = event.target.parentElement.children[0].children[0].id;
-              // console.log(event.target.parentElement.children[0].children[0])
               let task = {};
               if(event.target.id === `btn-edit-${App.variables.taskId}`) {
                 task = await App.utils.getTask(`http://localhost:4000/api/v1/task/`, App.variables.taskId);
@@ -91,7 +88,7 @@
                       id: Number(App.variables.taskId),
                       name: App.htmlElements.inputTask.value,
                       category: App.htmlElements.selectCategories.value,
-                      status: Boolean(true)
+                      status: Boolean(false)
                     }
                     const update = await App.utils.updateTask(`http://localhost:4000/api/v1/tasks/update/`, data, Number(App.variables.taskId))
                     App.htmlElements.mainTaskList.innerHTML = '';
@@ -119,7 +116,7 @@
                 id: Number(App.variables.arrayLength+1),
                 name: taskValue,
                 category,
-                status: Boolean(true),
+                status: Boolean(false),
               });
               document.getElementById("task-form").reset();
             },
@@ -129,12 +126,10 @@
               const response = await fetch(url);
               return response.json();
             },
-            // Obtiene 1 task por el ID
             getTask: async (url = "", id) => { 
               const response = await fetch(url + id);
               return response.json();
             },
-            // Ejemplo implementando el metodo POST:
             postData: async (url = "", data = {}) => {
               const response = await fetch(url, {method: "POST",mode: "cors",cache: "no-cache", credentials: "same-origin", 
                 headers: {

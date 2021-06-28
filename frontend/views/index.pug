@@ -5,6 +5,7 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="/static/css/app.css")
+        link(rel="stylesheet", href="/static/css/header.css")
         link(rel="stylesheet", href="/static/css/title.css")
         link(rel="stylesheet", href="/static/css/form.css")
         link(rel="stylesheet", href="/static/css/list.css")
@@ -14,6 +15,9 @@ html(lang="en")
         title Todo's App!
     body
         .main-container
+            .header
+                img(src="/static/img/utp.png", alt="UTP" class="img img-utp")
+                img(src="/static/img/fisc.png", alt="UTP" class="img fisc-utp")
             .main-form
                 .title-container
                     .title
@@ -21,7 +25,7 @@ html(lang="en")
                         h1 To do List
                     hr
                 form#task-form(action="")
-                    input(type="text",  class="input-task" name="task", placeholder="Introduce una tarea" id="input-task" required) 
+                    input(type="text", class="input-task" name="task", placeholder="Introduce una tarea" id="input-task" required) 
                     select( class="select-categories" id="select-categories")
                         option(disabled selected required) -- Seleccione una categoria --
                         option(value="Universidad") Universidad
